@@ -1,0 +1,53 @@
+<div class="container mt-5">
+  <h2 class="mb-4">Pasarela de Pago</h2>
+  <form id="payment-form" action="/process-payment/{{cartId}}" method="POST">
+    <div class="mb-3">
+      <label for="card-number" class="form-label">Número de Tarjeta</label>
+      <input type="text" class="form-control" id="card-number" placeholder="1234 5678 9012 3456" required>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="expiry-date" class="form-label">Fecha de Expiración</label>
+        <input type="text" class="form-control" id="expiry-date" placeholder="MM/AA" required>
+      </div>
+      <div class="col-md-6">
+        <label for="cvv" class="form-label">CVV</label>
+        <input type="text" class="form-control" id="cvv" placeholder="123" required>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="card-holder" class="form-label">Nombre del Titular</label>
+      <input type="text" class="form-control" id="card-holder" placeholder="Juan Pérez" required>
+    </div>
+    <div class="mb-4">
+      <h5>Monto Total a Pagar</h5>
+      <p class="h3 text-success">$<span id="total-amount">{{totalPurchase}}</span></p>
+      <input type="hidden" name="amount" value="{{totalPurchase}}">
+    </div>
+    <button type="submit" class="btn btn-primary">Pagar Ahora</button>
+  </form>
+</div>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+<script>
+document.getElementById('payment-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  Toastify({
+    text: "Compra exitosa!! Aguarde mientras lo redirigimos a la tienda",
+    duration: 3000,
+    close: true,
+    gravity: "top",
+    position: "right",
+    backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+    stopOnFocus: true,
+    onClick: function(){}
+  }).showToast();
+
+  setTimeout(function() {
+    window.location.href = '/home'; // Asume que esta es la ruta de tu tienda
+  }, 3000);
+});
+</script>
